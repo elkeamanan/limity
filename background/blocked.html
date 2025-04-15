@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Limity - Access Blocked</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #191A1B;
+            color: #F2EFE5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+        
+        .container {
+            max-width: 600px;
+            padding: 2rem;
+            background-color: #252627;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+        
+        .icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1.5rem;
+            background-color: #dc3545;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .icon::before {
+            content: "×";
+            font-size: 50px;
+            color: #F2EFE5;
+            font-weight: bold;
+        }
+        
+        h1 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: #dc3545;
+        }
+        
+        p {
+            margin-bottom: 1.5rem;
+            line-height: 1.5;
+            color: #F2EFE5;
+        }
+        
+        .contact {
+            font-size: 0.9rem;
+            background-color: #323335;
+            padding: 1rem;
+            border-radius: 4px;
+            margin-top: 1.5rem;
+            color: #F2EFE5;
+        }
+        
+        footer {
+            margin-top: 2rem;
+            font-size: 0.8rem;
+            color: #787a7d;
+        }
+        
+        .brand {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            letter-spacing: 1px;
+        }
+        
+        .brand span {
+            color: #dc3545;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="brand">limit<span>y</span></div>
+        <div class="icon"></div>
+        <h1>Access Blocked</h1>
+        <p>
+            This website is blocked by your registered blocked keyword.
+        </p>
+        <footer>
+            Limity Protection • Security Policy ID: SP-2025-04-15
+        </footer>
+    </div>
+</body>
+</html>
