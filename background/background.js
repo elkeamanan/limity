@@ -1,18 +1,9 @@
-let blockedKeywords = [];
-
-chrome.storage.local.get(["blockedKeywords"], function(result) {
-    blockedKeywords = result.blockedKeywords || [];
-});
-
-chrome.storage.onChanged.addListener((changes, namespace) => {
-    if (namespace === 'local' && changes.blockedKeywords) {
-        blockedKeywords = changes.blockedKeywords.newValue || [];
-    }
-});
+import { getBlockedKeywords } from "../shared/storage.js";
 
 function isBlockedURL(url) {
     if (!url) return false;
     
+    const blockedKeywords = getBlockedKeywords()
     for (const keyword of blockedKeywords) {
         if (url.includes(keyword)) {
             return true;
