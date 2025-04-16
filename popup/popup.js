@@ -1,12 +1,14 @@
-import { saveBlockedKeyword } from "../shared/storage.js";
 
-document.addEventListener('DOMContentLoaded', function() {
+import { saveBlockedKeyword } from "../provider/storage.js";
+
+document.addEventListener('DOMContentLoaded', async function() {
+
     const dataForm = document.getElementById('dataForm');
 
-    dataForm.addEventListener('submit', function(e) {
+    dataForm.addEventListener('submit', async function(e) {
         e.preventDefault();
 
         const keyword = document.getElementById('keyword').value;
-        saveBlockedKeyword(keyword);
+        await saveBlockedKeyword(keyword);
     })
 });
