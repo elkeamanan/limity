@@ -1,18 +1,9 @@
-let blockedKeywords = [];
+import { getBlockedKeywords } from "../provider/storage.js";
 
-chrome.storage.local.get(["blockedKeywords"], function(result) {
-    blockedKeywords = result.blockedKeywords || [];
-});
-
-chrome.storage.onChanged.addListener((changes, namespace) => {
-    if (namespace === 'local' && changes.blockedKeywords) {
-        blockedKeywords = changes.blockedKeywords.newValue || [];
-    }
-});
-
-function isBlockedURL(url) {
+async function isBlockedURL(url) {
     if (!url) return false;
     
+    const blockedKeywords = await getBlockedKeywords()
     for (const keyword of blockedKeywords) {
         if (url.includes(keyword)) {
             return true;
@@ -22,13 +13,21 @@ function isBlockedURL(url) {
 }
 
 chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
-    if (changeInfo.url && isBlockedURL(changeInfo.url)) {
-        chrome.tabs.update(tabId, {url: "background/blocked.html"});
+    if (changeInfo.url) {
+        isBlockedURL(changeInfo.url).then(isBlocked => {
+            if (isBlocked) {
+                chrome.tabs.update(tabId, {url: "background/blocked.html"});
+            }
+        });
     }
 });
 
 chrome.tabs.onCreated.addListener((tab) => {
-    if (tab.pendingUrl && isBlockedURL(tab.pendingUrl)) {
-        chrome.tabs.update(tab.id, {url: "background/blocked.html"});
+    if (tab.pendingUrl) {
+        isBlockedURL(tab.pendingUrl).then(isBlocked => {
+            if (isBlocked) {
+                chrome.tabs.update(tab.id, {url: "background/blocked.html"});
+            }
+        });
     }
 });
