@@ -4,6 +4,7 @@ async function isBlockedURL(url) {
     if (!url) return false;
     
     const blockedKeywords = await getBlockedKeywords()
+
     for (const keyword of blockedKeywords) {
         if (url.includes(keyword)) {
             return true;
