@@ -22,4 +22,21 @@ export async function saveBlockedKeyword(keyword) {
     });
 });
 }
+
+export async function removeBlockedKeyword(keyword) {
+    return getBlockedKeywords().then(keywords => {
+        if (!keywords.includes(keyword)) {
+            alert(`${keyword} is not in the blocked keywords list`);
+            return false;
+        }
+        
+        const updatedKeywords = keywords.filter(k => k !== keyword);
+        return new Promise(resolve => {
+            chrome.storage.local.set({ 'blockedKeywords': updatedKeywords }, () => {
+                alert(`${keyword} successfully removed from blocked keywords`);
+                resolve(true);
+            });
+        });
+    });
+}
   
