@@ -1,4 +1,4 @@
-import { getBlockedKeywords, saveBlockedKeyword } from "../provider/storage.js";
+import { getBlockedKeywords, removeBlockedKeyword, saveBlockedKeyword } from "../provider/storage.js";
 
 document.addEventListener('DOMContentLoaded', async function() {
     const blockedKeywords = await getBlockedKeywords()
@@ -9,10 +9,26 @@ document.addEventListener('DOMContentLoaded', async function() {
     keywordSection.appendChild(keywordContainer);
 
     for (const keyword of blockedKeywords) {
-        const newDiv = document.createElement("div");
-        newDiv.textContent = keyword;
-        newDiv.className = "keyword-box";
-        keywordContainer.appendChild(newDiv);
+        const keywordBox = document.createElement("div");
+        keywordBox.className = "keyword-box";
+        
+        const keywordText = document.createElement("span");
+        keywordText.textContent = keyword;
+        keywordBox.appendChild(keywordText);
+        
+        const removeButton = document.createElement("button");
+        removeButton.textContent = "x";
+        removeButton.className = "remove-keyword-btn";
+        removeButton.title = "Remove keyword";
+        removeButton.addEventListener("click", async () => {
+            const removed = await removeBlockedKeyword(keyword);
+            if (removed) {
+                keywordBox.remove();
+            }
+        });
+        
+        keywordBox.appendChild(removeButton);
+        keywordContainer.appendChild(keywordBox);
     }
 
     const dataForm = document.getElementById('dataForm');
